@@ -134,7 +134,7 @@ $.ajax({
 
 
 
-
+var mData = "{{mData}}";
 
 
       document.cookie = 'same-site-cookie=foo; SameSite=Lax';
@@ -466,6 +466,11 @@ function initMap() {
         markers[markerId] = createMarker(markerData[markerId]);
     }
     //markers['bing'].setTitle("new title");
+  
+  for(mDataId in mData){
+    //alert(mData);
+  }
+  
 }
  var markers = {};
  var boxList =[];

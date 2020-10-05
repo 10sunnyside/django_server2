@@ -5,9 +5,13 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Sunnyfive 
 from .serializers import SunnyfiveSerializer 
 from rest_framework.parsers import JSONParser
+from rest_framework import viewsets
 
 # Create your views here. 
 
+class SunnyViewSet(viewsets.ModelViewSet): 
+    queryset = Sunnyfive.objects.all() 
+    serializer_class = SunnyfiveSerializer
 
 
 
@@ -63,4 +67,8 @@ def login(request):
 def map(request):
     """View function for home page of site."""
     # Render the HTML template index.html with the data in the context variable
-    return render(request, 'map.html')
+    mData = Sunnyfive.objects.all()
+    serializer = SunnyfiveSerializer(mData, many=True) 
+    context = {'mData':mData}
+    return render(request, 'map.html', context)
+
