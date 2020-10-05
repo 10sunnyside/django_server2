@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-169303598-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-169303598-1');
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/map.css' %}">
+    <style>
+
+       /* Set the size of the div element that contains the map */
+
+      #map {
+
+        height: 80%;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+        margin: 0px;
+        padding: 0px;
+        position : relative;
+        float: left; 
+
+       }
+
+       #yt {
+
+height: 100%;  /* The height is 400 pixels */
+width: 60%;  /* The width is the width of the web page */
+margin: 0px;
+padding: 10px;
+position : relative;
+float: left; 
+
+}
+#video {
+
+height: 20%;  /* The height is 400 pixels */
+width: 100%;  /* The width is the width of the web page */
+margin: 0px;
+padding: 0px;
+position : relative;
+float: left; 
+
+}
+
+       #list {
+         height:100%;
+         width: 30%;
+         padding: 10px;
+         position : relative;
+         float: left; 
+       }
+
+       #title {
+
+height:auto;  /* The height is 400 pixels */
+width: 60%;  /* The width is the width of the web page */
+margin: 0px;
+padding: 10px;
+position : relative;
+float: left; 
+
+}
+#input-form {
+         height:auto;
+         width: 30%;
+         padding: 10px;
+         position : relative;
+         float: left; 
+       }
+    </style>
+
+  </head>
+
+  <body>
+
+
+    <h3 id="title">Sunny5ive realtime camera map</h3>
+    <div id="input-form">
+      검색 : <input type="text" id="keyword" />
+  </div>
+</div>
+    <!--The div element for the map -->
+    <div id = "yt">
+      <div id = "video" style ="display:none">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/eE6VVJ3hvv8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div id ="map"></div>
+    </div>
+    <div id ="list">
+    <button class="accordion">Section 1</button>
+    <div class="panel">
+      <p>Lorem ipsum...</p>
+    </div>
+    
+    <button class="accordion">Section 2</button>
+    <div class="panel">
+      <p>Lorem ipsum...</p>
+    </div>
+    
+    <button class="accordion">Section 3</button>
+    <div class="panel">
+      <p>Lorem ipsum...</p>
+    </div>
+  </div>
+  <a href="https://api.twitch.tv/kraken/oauth2/authorize?response_type=code&client_id=t0m7bcvtee84igtp7lrd080gbno6uf&redirect_uri=http://localhost&scope=user_read">aaaaaaa</a>
+    <script>
+
+/*
+$.ajax({
+    url:"https://api.twitch.tv/kraken/streams/?offset=0&limit=100&channel=149747285,197886470",
+    type: "GET",
+    dataType:"json",
+    headers: {
+        "Accept": "application/vnd.twitchtv.v5+json",
+        "Client-ID": "wlamtfby1oxgzfzzemr02kpl32wj6c"
+    },
+})
+    .done(function(channel){
+        console.log(channel);
+    })
+    .fail(function(error){
+        console.log(error);
+    });
+*/
+
+
+
+
+
+
+      document.cookie = 'same-site-cookie=foo; SameSite=Lax';
+document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
+
+var markerData = [
+        {
+            lat: 45.434038,
+            lng: 12.346914,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/eE6VVJ3hvv8",
+            title: "Tribute to Music Venice",
+            nation:"Italy"
+        },
+        {
+            lat: 45.430309688458,
+            lng: 12.329755300619,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_blue.png",
+            url: "https://www.youtube.com/embed/JqUREqYduHw",
+            title: "Hotel American Dinesen",
+            nation:"Italy"
+        },
+        {
+            lat: 45.203078,
+            lng: 12.299722,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/1pf1qjYpHlY",
+            title: "Hotel Park Chioggia",
+            nation:"Italy"
+        },        {
+            lat: 45.440705,
+            lng: 12.332468,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/cjCmsRjxVL0",
+            title: "Hotel San Cassiano",
+            nation:"Italy"
+        },        {
+            lat: 45.437783,
+            lng: 12.340628,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/WjOGhNDX51M",
+            title: "Ruzzini Palace Hotel",
+            nation:"Italy"
+        },        {
+            lat: 45.437039,
+            lng: 12.335081,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/BPXtn15_9qo",
+            title: "Rialto Bridge",
+            nation:"Italy"
+        }, {
+            lat: 42.792238,
+            lng: 13.092661,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/C78daVqDpB8",
+            title: "Piazza S. Benedetto",
+            nation:"Italy"
+        }, {
+            lat: 67.289901,
+            lng: 14.398237,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/5BHJBR3_dv8",
+            title: "Bodo harbor KF",
+            nation:"Norway"
+        }, {
+            lat: 67.289901,
+            lng: 14.398237,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/yMSc-qqW3To",
+            title: "Geirangerfjord cruise port, Geiranger",
+            nation:"Norway"
+        }, {
+            lat: 46.521178,
+            lng: 6.636441,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/TyElel0QjCI",
+            title: "Lausanne, pont Bessières",
+            nation:"Swiss"
+        }, {
+            lat: 43.479394434038,
+            lng: -110.762717,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/1EiC9bvVGnk",
+            title: "Jackson Hole Wyoming USA Town Square",
+            nation:"USA"
+        },        {
+            lat: 37.551279,
+            lng: 126.988227,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/am2Ivi346tQ",
+            title: "N Seoul Tower",
+            nation:"Korea"
+        },
+        {
+            lat: 35.147920,
+            lng: 129.130059,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/_YDqoaTAtww",
+            title: "Gwangan Bridge",
+            nation:"Korea"
+        },
+        {
+            lat: 37.563188,
+            lng: 126.987358,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/qFSdE5RTb_g",
+            title: "Myeongdong Catholic Cathedral",
+            nation:"Korea"
+        },
+        {
+            lat: 35.168334,
+            lng: 129.057178,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/Zlxa4-BTPAQ",
+            title: "Busan Citizen Park",
+            nation:"Korea"
+        },
+        {
+            lat: 35.658182,
+            lng: 139.758729,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/3mfWO1CwxpI",
+            title: "Tokyo Shiodome Railway",
+            nation:"Japan"
+        },
+        {
+            lat: 35.071355,
+            lng: 139.541443,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/CWNjN2bYzsA",
+            title: "Mt. Hiroshige of Mt. Fuji",
+            nation:"Japan"
+        },
+        {
+            lat: 32.796601,
+            lng: 130.703701,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/1_40EYOldbY",
+            title: "Kumamoto City Shirakawa, RKK rooftop, Shirakawa-Changrokyo Bridge",
+            nation:"Japan"
+        },
+        {
+            lat: 35.503667,
+            lng: 138.776795,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/yOKn755TA3U",
+            title: "Mt.Fuji Panoramic Ropeway",
+            nation:"Japan"
+        },
+        {
+            lat: 34.733428,
+            lng: 135.500188,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/DYk9RVhr9sc",
+            title: "Shin-Osaka Station",
+            nation:"Japan"
+        },
+        {
+            lat: 36.139893,
+            lng: 137.258576,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/PG8kZQ2EkSQ",
+            title: "Takayama Jinya",
+            nation:"Japan"
+        },
+        {
+            lat: 34.245220,
+            lng: 134.883358,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/ZOn7EVp9248",
+            title: "Awaji Island Monkey Center",
+            nation:"Japan"
+        },
+        {
+            lat: 34.680655,
+            lng: 135.202896,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/TsumMLWIsmM",
+            title: "Kobe Port Terminal",
+            nation:"Japan"
+        },
+        {
+            lat: 33.852062,
+            lng: 132.786447,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/cqjaUAloHzQ",
+            title: "Dogo Onsen Main Building",
+            nation:"Japan"
+        },
+        {
+            lat: 33.852062,
+            lng: 132.786447,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/vM7_-e0gdsc",
+            title: "Dogo Onsen Main Building front camera",
+            nation:"Japan"
+        },
+        {
+            lat: 32.214401,
+            lng: 130.762849,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/dXZ3ns5v-e8",
+            title: "Hitoyoshi City",
+            nation:"Japan"
+        },
+        {
+            lat: 35.141350,
+            lng: 138.692828,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/jnuacQgCEEA",
+            title: "Tagunoura Port",
+            nation:"Japan"
+        },
+        {
+            lat: 36.566461,
+            lng: 136.659937,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/TjyrhHdTJVY",
+            title: "Kanazawa Castle Park",
+            nation:"Japan"
+        },
+        {
+            lat: 26.686426,
+            lng: 127.876092,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/ZrJyATrrKVs",
+            title: "Marine Expo Park Tropical Dream Center",
+            nation:"Japan"
+        },
+        {
+            lat: 37.049406,
+            lng: 140.040905,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/M7htV04x6Z8",
+            title: "HOTEL MORI NO KAZE NASU",
+            nation:"Japan"
+        },
+        {
+            lat: 37.754832,
+            lng: 140.465908,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/iJgNyAuIdos",
+            title: "Gurutto Fukushima",
+            nation:"Japan"
+        },
+        {
+            lat: 32.745784,
+            lng: 129.868686,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/7rATmPOOXSo",
+            title: "Nagasaki Port",
+            nation:"Japan"
+        },
+        {
+            lat: 36.348395,
+            lng: 138.597026,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/Pm_RPOVlbGQ",
+            title: "Japan Nagano Prefecture Karuizawa Town",
+            nation:"Japan"
+        },
+        {
+            lat: 35.689683,
+            lng: 139.700748,
+            icon: "http://labs.google.com/ridefinder/images/mm_20_red.png",
+            url: "https://www.youtube.com/embed/BQYKarjjWi0",
+            title: "Tokyo Shinjuku JR",
+            nation:"Japan"
+        }
+
+
+    ];
+    var checkNation;
+var nationList = [];
+    createList(markerData); 
+
+
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+        var panel = $(this).nextUntil('button')
+      //var panel = this.nextElementSibling;
+      for(Pid in panel){
+        if(Pid=="length"){
+          break;
+        }
+      if (panel[Pid].style.display === "block") {
+        panel[Pid].style.display = "none";
+      } else {
+        panel[Pid].style.display = "block";
+      }
+    }
+    
+  
+    });
+  }
+// Initialize and add the map
+
+function moveToLocation(lat, lng){
+
+var center = new google.maps.LatLng(lat, lng);
+
+map.panTo(center);
+
+}
+
+var map;
+
+function initMap() {
+
+  // The location of Uluru
+
+  var NStower = {lat: 36.631154, lng: 127.502926};
+
+  // The map, centered at Uluru
+
+ map = new google.maps.Map(
+
+      document.getElementById('map'), {zoom: 8, center: NStower});
+
+  // The marker, positioned at Uluru
+
+  //var marker = new google.maps.Marker({position: uluru, map: map});
+  for (markerId in markerData) {
+        markers[markerId] = createMarker(markerData[markerId]);
+    }
+    //markers['bing'].setTitle("new title");
+}
+ var markers = {};
+ var boxList =[];
+ var url;
+ var count=0;
+    // inside function createMap(...)
+  
+    
+
+function createList(markerData){
+  for(id in markerData){
+
+for(Nid in nationList){
+if(markerData[id].nation==nationList[Nid])
+{
+  checkNation=1;
+  break;
+}
+
+}
+
+if(checkNation==0){
+  nationList.push(markerData[id].nation);
+  
+var bt = document.createElement("button");
+bt.className="accordion";
+bt.title = markerData[id].nation;
+bt.id = markerData[id].nation;
+bt.innerText=markerData[id].nation;
+
+var div = document.createElement("div");
+div.className="panel";
+var p = document.createElement("p")
+p.title = markerData[id].title;
+p.innerText = markerData[id].title;
+//p.addEventListener("click",window.open(markerData[id].url));
+
+div.appendChild(p);
+
+list.appendChild(bt);
+$('#'+ markerData[id].nation).after(div);
+}
+
+else if(checkNation==1){
+var bt = document.getElementById(markerData[id].nation);
+var div = document.createElement("div");
+div.className="panel";
+//div.onclick
+var p = document.createElement("p")
+p.title = markerData[id].title;
+p.innerText = markerData[id].title;
+//p.addEventListener("click",window.open(markerData[id].url));
+
+div.appendChild(p);
+$('#'+ markerData[id].nation).after(div);
+}
+
+
+checkNation=0;
+}
+}
+
+
+function createMarker(data) {
+    var myLatLng = new google.maps.LatLng(data.lat, data.lng);
+    
+    var marker = new google.maps.Marker({
+        id : count,
+        position: myLatLng,
+        //icon: data.icon,
+        map: map,
+        title: data.title
+        //animation:google.maps.Animation.BOUNCE
+
+
+    });
+    //var content = "Loan Number: " + data.title + '</h3>' + "Address: " + data.url
+
+   /* var boxText = document.createElement("div");
+            boxText.id = markerId;
+            boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
+            boxText.innerHTML = "InfoBox for " + "hello";
+
+    var ib = new InfoBox(myOptions);
+            boxList.push(ib); */
+
+
+            var boxText = document.createElement("div");
+            var boxUrl = document.createElement("a");
+            boxUrl.setAttribute('href',markerData[count].url);
+            boxUrl.innerText = markerData[count].title;
+            boxText.id = count;
+            boxUrl.innerHTML = markerData[count].title;
+            boxList.push(boxUrl);
+
+            /*var myOptions = {
+                content: boxText
+                ,disableAutoPan: false
+                ,maxWidth: 0
+                ,pixelOffset: new google.maps.Size(-140, 0)
+                ,zIndex: null
+                ,boxStyle: {
+                    background: "url('tipbox.gif') no-repeat"
+                    ,opacity: 0.75
+                    ,width: "280px"
+                }
+                ,closeBoxMargin: "10px 2px 2px 2px"
+                ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+                ,infoBoxClearance: new google.maps.Size(1, 1)
+                ,isHidden: false
+                ,pane: "floatPane"
+                ,enableEventPropagation: false
+            };*/
+            //var ib = new InfoBox(myOptions);
+
+
+//var infowindow = new google.maps.InfoWindow()
+
+var infowindow = new google.maps.InfoWindow({
+            disableAutoPan: true
+          ,isHidden:false
+          ,pixelOffset: new google.maps.Size(-10, -10)
+          ,closeBoxURL: ""
+          ,pane: "mapPane"
+          ,enableEventPropagation: true
+        });
+
+google.maps.event.addListener(marker, "click", (function(marker) {
+      return function(evt) {
+        url=data.url;
+        /*var content = '<div id="infoWindow">'
+                    +'<div id="bodyContent">'
+                    +'<p>'
+                   // + "This location is:<br>"
+                    + marker.getTitle()
+                    +'</p>'
+                    +'</div>'
+                    + '</div>';*/
+
+        
+
+        var content = boxList[this.id];
+        
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                
+      }
+    })(marker));
+
+    count++;
+  }
+
+  $(function(){
+  $('.panel').click(function(){
+    var title =$(this).find("p")[0].title;
+    var url;
+    var lat;
+    var lng;
+    for(tt in markerData){
+      if(markerData[tt].title==title){
+        url=markerData[tt].url;
+        lat=markerData[tt].lat;
+        lng=markerData[tt].lng;
+        break;
+      }
+    }
+
+    $(video).find("iframe")[0].src=url;
+    $(video).css("display","block");
+    moveToLocation(lat,lng);
+
+
+
+  });
+});
+
+  
+  function openYT(url){
+    alert(url);
+    var YT = window.open(url);
+  }
+  
+  $.extend($.expr[":"], { "containsIN": function(elem, i, match, array) { return (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0; } });
+
+
+
+
+  $(document).ready(function() {
+            $("#keyword").keyup(function() {
+                var k = $(this).val();
+                //$("#user-table > tbody > tr").hide();
+                $('.panel').hide();
+                if (k==""){
+                  k=null;
+                }
+                //var temp = $("#user-table > tbody > tr > td:nth-child(5n+2):contains('" + k + "')");
+                var temp = $("p:containsIN('" + k + "')");
+                //$(temp).css("display","block");
+                $(temp).parent().show();
+            })
+        })
+
+  
+    </script>
+
+    <!--Load the API from the specified URL
+
+    * The async attribute allows the browser to render the page while the API loads
+
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+
+    * The callback parameter executes the initMap() function
+
+    -->
+    
+    <script async defer
+
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu6Sfm83Qr5-o_k3olARNCQTbq1BjX7WQ&callback=initMap">
+
+    </script>
+
+        
+  <!--<script src="js/map.js"></script>-->
+  </body>
+
+</html>
