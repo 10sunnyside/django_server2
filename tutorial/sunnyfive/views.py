@@ -5,13 +5,19 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Sunnyfive 
 from .serializers import SunnyfiveSerializer 
 from rest_framework.parsers import JSONParser
-from rest_framework import viewsets
-
+from django.views import generic
+import json
 # Create your views here. 
 
-class SunnyViewSet(viewsets.ModelViewSet): 
-    queryset = Sunnyfive.objects.all() 
-    serializer_class = SunnyfiveSerializer
+
+class mData_list(generic.TemplateView):
+    def get(self, request, *args, **kwargs):
+        mdata = Sunnyfive.objects.all()
+        serializer = SunnyfiveSerializer(mdata, many=True)
+        mdata_serial = serializer.data
+        mdata_json = json.dumps(mdata_serial)
+        return render(request, 'map.html', {"mData":mdata_json})
+
 
 
 
@@ -19,7 +25,7 @@ class SunnyViewSet(viewsets.ModelViewSet):
 def address_list(request): 
     if request.method == 'GET': 
         query_set = Sunnyfive.objects.all() 
-        serializer = SunnyfiveSerializer(query_set, many=True) 
+        serializer = SunnyfiveSerializer(query_set, many=True)
         return JsonResponse(serializer.data, safe=False) 
         
     elif request.method == 'POST': 
@@ -55,10 +61,10 @@ def address(request, pk):
 def login(request): 
     if request.method == 'POST': 
         data = JSONParser().parse(request) 
-        search_channel = data['channel']
-        obj = Sunnyfive.objects.get(channel=search_channel)
+        search_nation = data['nation']
+        obj = Sunnyfive.objects.get(nation=search_nation)
         
-        if data['id_name'] == obj.id_name:
+        if data['url'] == obj.url:
             return HttpResponse(status=200) 
         else: 
             return HttpResponse(status=400)
@@ -67,8 +73,4 @@ def login(request):
 def map(request):
     """View function for home page of site."""
     # Render the HTML template index.html with the data in the context variable
-    mData = Sunnyfive.objects.all()
-    serializer = SunnyfiveSerializer(mData, many=True) 
-    context = {'mData':mData}
-    return render(request, 'map.html', context)
-
+    return render(request, 'map.html')

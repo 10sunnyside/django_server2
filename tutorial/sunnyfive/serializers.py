@@ -6,4 +6,4 @@ from .models import Sunnyfive
 class SunnyfiveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sunnyfive 
-        fields = ['name', 'location', 'address', 'id_name', 'channel']
+        fields = ['lat', 'lng', 'url', 'title', 'nation']

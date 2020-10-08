@@ -16,21 +16,19 @@ Including another URLconf
 from django.urls import include, path
 from rest_framework import routers
 from tutorial.quickstart import views
-from django.conf.urls import url, include 
-from sunnyfive import views 
-from django.urls import path 
+from django.conf.urls import url, include
+from sunnyfive import views
+from django.urls import path
 
-router = routers.DefaultRouter() 
-router.register('', views.SunnyViewSet) # prefix = movies , viewset = MovieViewSet
 
 
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
-urlpatterns = [ 
-    path('sunnyfive/', views.address_list), 
-    path('sunnyfive/<int:pk>/', views.address), 
-    path('login/', views.login), 
+urlpatterns = [
+    path('sunnyfive/', views.address_list),
+    path('sunnyfive/<int:pk>/', views.address),
+    path('login/', views.login),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('sunnyfive2/', include('sunnyfive.urls')),
-    url(r'^',include(router.urls)), ]
+    path('mData/', include('sunnyfive.urls')), ]

@@ -133,8 +133,8 @@ $.ajax({
 */
 
 
+var mData ={{mData|safe}}
 
-var mData = "{{mData}}";
 
 
       document.cookie = 'same-site-cookie=foo; SameSite=Lax';
@@ -409,7 +409,8 @@ var markerData = [
     ];
     var checkNation;
 var nationList = [];
-    createList(markerData); 
+   // createList(markerData); 
+      createList(mData);
 
 
 
@@ -462,15 +463,18 @@ function initMap() {
   // The marker, positioned at Uluru
 
   //var marker = new google.maps.Marker({position: uluru, map: map});
-  for (markerId in markerData) {
+  
+  
+  /*for (markerId in markerData) {
         markers[markerId] = createMarker(markerData[markerId]);
+    }*/
+
+    for (markerId in mData) {
+        markers[markerId] = createMarker(mData[markerId]);
     }
+
+
     //markers['bing'].setTitle("new title");
-  
-  for(mDataId in mData){
-    //alert(mData);
-  }
-  
 }
  var markers = {};
  var boxList =[];
